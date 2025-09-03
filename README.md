@@ -94,8 +94,14 @@ The Conditional GAN architecture enables controlled generation by incorporating 
 **Discriminator:**
 - Input: Generated/real images concatenated with bacterial attachment values
 - Architecture: Linear layers (120,001 → 256 → 128 → 1)
-- Activation Functions: ReLU (hidden layers), Sigmoid (output layer)
-- Output: Binary classification probability
+- **Activation Functions: ReLU (hidden layers), Sigmoid (output layer)
+- **Output:** Binary classification probability
+
+![cGAN Generator Architecture](https://raw.githubusercontent.com/tarunk42/Masters_Dissertation/main/output/cGAN/cGAN_G_layers.png)
+*Figure 2: cGAN Generator Architecture*
+
+![cGAN Discriminator Architecture](https://raw.githubusercontent.com/tarunk42/Masters_Dissertation/main/output/cGAN/cGAN_D_layers.png)
+*Figure 3: cGAN Discriminator Architecture*
 
 #### Training Configuration
 - **Epochs:** 1,000
@@ -116,14 +122,20 @@ The DCGAN leverages convolutional layers to capture spatial hierarchies in image
 - Architecture: ConvTranspose2d layers (100 → 128 → 64 → 32 → 1 channels)
 - Spatial Progression: 1×1 → 4×4 → 7×7 → 14×14 → 28×28
 - Normalization: Batch Normalization (except final layer)
-- Activation Functions: ReLU (hidden layers), Tanh (output layer)
+- **Activation Functions:** ReLU (hidden layers), Tanh (output layer)
+
+![DCGAN Generator Architecture](https://raw.githubusercontent.com/tarunk42/Masters_Dissertation/main/output/DCGAN/DCGAN_G_layers.png)
+*Figure 4: DCGAN Generator Layer Structure*
 
 **Discriminator:**
 - Input: 28×28 grayscale images
 - Architecture: Conv2d layers (1 → 32 → 64 → 128 → 1 channels)
 - Spatial Progression: 28×28 → 14×14 → 7×7 → 3×3 → 1×1
 - Normalization: Batch Normalization (except first layer)
-- Activation Functions: LeakyReLU (hidden layers), Sigmoid (output layer)
+- **Activation Functions:** LeakyReLU (hidden layers), Sigmoid (output layer)
+
+![DCGAN Discriminator Architecture](https://raw.githubusercontent.com/tarunk42/Masters_Dissertation/main/output/DCGAN/DCGAN_D_layers.png)
+*Figure 5: DCGAN Discriminator Layer Structure*
 
 #### Training Configuration
 - **Epochs:** 100 (locally), extended to 1,000 for evaluation
@@ -149,7 +161,10 @@ The VAE serves as a reference model, employing probabilistic approaches to learn
 **Decoder:**
 - Input: 20-dimensional latent vector concatenated with bacterial attachment values
 - Architecture: Linear layers (21 → 400 → 120,000) with Batch Normalization
-- Activation Functions: ReLU (hidden layer), Sigmoid (output layer)
+- **Activation Functions:** ReLU (hidden layer), Sigmoid (output layer)
+
+![VAE Model Architecture](https://raw.githubusercontent.com/tarunk42/Masters_Dissertation/main/output/VAE/VAE_model_layers.png)
+*Figure 6: VAE Model Architecture*
 
 #### Training Configuration
 - **Epochs:** 2,000
@@ -209,7 +224,36 @@ Qualitative evaluation through generated sample grids (64 images per model) for 
 | **cGAN** | **1379.80** | 1,000 | 200×200 |
 | **VAE** | **1,448.61** | 2,000 | 200×200 |
 
-*\*cGAN FID score mentioned as better than VAE but specific value not provided in dissertation*
+*\*Updated with actual FID scores from experimental results*
+
+### Training Dynamics
+
+![DCGAN Training Loss](https://raw.githubusercontent.com/tarunk42/Masters_Dissertation/main/output/DCGAN/DCGAN_G_D_loss.png)
+*Figure 7: DCGAN Generator and Discriminator Loss Over Training Epochs*
+
+![cGAN Training Loss](https://raw.githubusercontent.com/tarunk42/Masters_Dissertation/main/output/cGAN/cGAN_G_D_loss.png)
+*Figure 8: cGAN Generator and Discriminator Loss Over Training Epochs*
+
+![VAE FID Evolution](https://raw.githubusercontent.com/tarunk42/Masters_Dissertation/main/output/VAE/VAE_FID_1000.png)
+*Figure 9: VAE FID Score Evolution During Training*
+
+### Generated Samples
+
+#### DCGAN Output (Best Performing Model)
+![DCGAN Generated Samples](https://raw.githubusercontent.com/tarunk42/Masters_Dissertation/main/output/DCGAN/DCGAN_1000.png)
+*Figure 10: DCGAN Generated Biomaterial Topography Samples at 1,000 Epochs*
+
+#### cGAN Output
+![cGAN Generated Samples](https://raw.githubusercontent.com/tarunk42/Masters_Dissertation/main/output/cGAN/GAN-1000.png)
+*Figure 11: cGAN Generated Biomaterial Topography Samples at 1,000 Epochs*
+
+#### VAE Output (Reference Model)
+![VAE Generated Samples](https://raw.githubusercontent.com/tarunk42/Masters_Dissertation/main/output/VAE/VAE-2000.png)
+*Figure 12: VAE Generated Biomaterial Topography Samples at 2,000 Epochs*
+
+### FID Score Comparison
+![FID Scores Comparison](https://raw.githubusercontent.com/tarunk42/Masters_Dissertation/main/output/fid_scores_plot.jpeg)
+*Figure 13: Comparative FID Scores Across All Models*
 
 ### Performance Analysis
 
